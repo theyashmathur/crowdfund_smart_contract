@@ -63,6 +63,7 @@ contract CrowdFund is Initializable {
         require(req.manager != address(0), "Project does not exist");
         require(contribution >= req.minimumContribution, "Less than minimum contribution");
         require(block.timestamp < req.deadline, "Project deadline expired");
+        require(msg.sender != requests[projectId].manager, "Manager not allowed refund");
 
         contributions[msg.sender][projectId] = contribution;
         req.contributors++;
